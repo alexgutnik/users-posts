@@ -1,9 +1,10 @@
 {
   "name": "shared",
   "version": "1.0.0",
-  "main": "./utils/httpClient.ts",
+  "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc -p tsconfig.json"
   },
   "keywords": [],
   "author": "",
