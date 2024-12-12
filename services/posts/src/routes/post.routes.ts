@@ -1,7 +1,6 @@
 import express from "express";
 import { PostApiRepository } from "../repositories/post.api.repository";
 import { HttpClient } from "shared/utils/httpClient";
-import {ValidationError} from "shared/exceptions/ValidationError";
 import { PostService } from "../services/post.service";
 
 const router = express.Router();
