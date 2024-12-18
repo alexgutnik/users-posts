@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start:users": "npm run dev -w users",
-    "start:posts": "npm run dev -w posts",
-    "start:all": "npm run start-users & npm run start-posts",
+    "start:users": "npm run dev -w @sweetch/users",
+    "start:posts": "npm run dev -w @sweetch/posts",
+    "start:all": "npm run start:users & npm run start:posts",
 
     "build:shared": "npm run build -w @sweetch/shared",
     "build:users": "npm run build:shared && npm run build -w @sweetch/users",
