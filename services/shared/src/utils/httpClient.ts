@@ -6,6 +6,11 @@ export interface IHttpClient {
     get<T>(url: string, config?: AxiosRequestConfig): Promise<T>;
 }
 
+type ErrorResponse = {
+    status: number;
+    message: string;
+};
+
 export class HttpClient implements IHttpClient {
     private client: AxiosInstance;
 
@@ -29,26 +34,63 @@ export class HttpClient implements IHttpClient {
         }
     }
 
-    private handleError(error: unknown, url: string): never {
+    public handleError(error: unknown, url: string): never {
         if (axios.isAxiosError(error)) {
+            // Handle Axios-specific errors
             if (error.response) {
-                // Server responded with a status other than 2xx
+                // Server responded with error status
                 const status = error.response.status;
-                const message = `HTTP GET Error: ${error.response.status} - ${error.response.statusText || "Unknown Status"}`;
-                throw new ApiError(status, message);
-            } else if (error.request) {
-                // No response received
-                throw new ApiError(503, `Service Unavailable: No response from ${url}`);
-            } else if (error.code === 'ECONNABORTED') {
-                // Timeout error
-                throw new ApiError(504, `Timeout Error: ${error.message}`);
-            } else {
-                throw new ApiError(500, `HTTP GET Error: ${error.message}`);
+                const errorData = error.response.data as ErrorResponse;
+
+                switch (status) {
+                    case 400:
+                        throw new ApiError(status, 'Bad Request: Invalid parameters');
+                    case 401:
+                        throw new ApiError(status, 'Unauthorized: Authentication required');
+                    case 403:
+                        throw new ApiError(status, 'Forbidden: Insufficient permissions');
+                    case 404:
+                        throw new ApiError(status, `Not Found: Resource at ${url} doesn't exist`);
+                    case 429:
+                        throw new ApiError(status, 'Rate Limited: Too many requests');
+                    default:
+                        throw new ApiError(
+                            status,
+                            errorData?.message ||
+                            `Server Error: ${error.response.statusText || 'Unknown error occurred'}`
+                        );
+                }
             }
+
+            // Handle specific network errors
+            if (error.code === 'ECONNABORTED') {
+                throw new ApiError(
+                    504,
+                    `Request Timeout: The request to ${url} took too long to respond`
+                );
+            }
+
+            // No response received (network error)
+            if (!error.request) {
+                throw new ApiError(
+                    503,
+                    `Network Error: No response received from ${url}`
+                );
+            }
+
+            // Other axios errors
+            throw new ApiError(
+                500,
+                `Request Failed: ${error.message || 'Unknown axios error occurred'}`
+            );
         }
 
-        // Unknown or unexpected error
-        const message = error instanceof Error ? error.message : "Unknown error occurred";
-        throw new ApiError(500, `Unexpected Error: ${message}`);
+        // Handle non-axios errors
+        if (error instanceof Error) {
+            throw new ApiError(500, `Unexpected Error: ${error.message}`);
+        }
+
+        // Handle unknown errors
+        throw new ApiError(500, 'Unknown Error: An unexpected error occurred');
     }
 }
