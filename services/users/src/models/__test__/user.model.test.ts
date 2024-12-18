@@ -1,6 +1,6 @@
-import { UserModel } from '../user.model';
-import { ValidationError } from 'shared/exceptions/ValidationError';
-import { User } from '../../types';
+import { UserModel } from "../user.model";
+import { ValidationError } from "@sweetch/shared";
+import { User } from "../../types";
 
 describe('UserModel', () => {
     it('should create a valid user model', () => {

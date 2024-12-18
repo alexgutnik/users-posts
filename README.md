@@ -17,15 +17,21 @@ The goal is to implement an API that will allow to:
 - Run `npm install`
 
 ## Running the server
-- Run `npm run start-all`
+- Run `npm run start:all`
+- The users service will run on port 5001
+- The posts service will run on port 5002
+
+- To run the services separately:
+  - Run `npm run start:users`
+  - Run `npm run start:posts`
 
 ## Running the tests
-- Run `npm run test-all`
+- Run `npm run test:all`
 
 ## API
-- GET localhost:5001/users
-- GET localhost:5001/users/:id
-- GET localhost:5002/users/:id/posts
+- `GET localhost:5001/users` to get all users
+- `GET localhost:5001/users/:id` to get user by id
+- `GET localhost:5002/users/:id/posts` to get posts by user id
 
 ## Architecture
 The project is divided into 3 parts:

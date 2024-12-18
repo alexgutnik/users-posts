@@ -3,11 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start-users": "npm run dev -w users",
-    "start-posts": "npm run dev -w posts",
-    "start-all": "npm run start-users & npm run start-posts",
+    "start:users": "npm run dev -w users",
+    "start:posts": "npm run dev -w posts",
+    "start:all": "npm run start-users & npm run start-posts",
+
+    "build:shared": "npm run build -w @sweetch/shared",
+    "build:users": "npm run build:shared && npm run build -w @sweetch/users",
+    "build:posts": "npm run build:shared && npm run build -w @sweetch/posts",
+    "build:all": "npm run build:shared && npm run build:users && npm run build:posts",
+
     "test-all": "npm run test --workspaces",
-    "build-all": "npm --workspaces run build",
     "install-all": "npm --workspaces install"
   },
   "keywords": [],
@@ -31,8 +36,8 @@
   },
   "private": true,
   "workspaces": [
+    "services/shared",
     "services/users",
-    "services/posts",
-    "shared"
+    "services/posts"
   ]
 }

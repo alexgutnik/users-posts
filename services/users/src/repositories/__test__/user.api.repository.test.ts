@@ -1,7 +1,6 @@
 import { UserApiRepository } from '../user.api.repository';
-import {HttpClient, IHttpClient} from 'shared/utils/httpClient';
+import { HttpClient, IHttpClient, ValidationError } from '@sweetch/shared';
 import { UserModel } from '../../models/user.model';
-import { ValidationError } from 'shared/exceptions/ValidationError';
 import { User } from '../../types';
 
 describe('UserApiRepository', () => {

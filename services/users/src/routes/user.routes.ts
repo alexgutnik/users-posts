@@ -1,7 +1,7 @@
-import express, { Request, Response, NextFunction} from "express";
-import { UserService } from "../services/user.service";
-import { UserApiRepository } from "../repositories/user.api.repository";
-import { HttpClient } from "shared/utils/httpClient";
+import express from "express";
+import {UserService} from "../services/user.service";
+import {UserApiRepository} from "../repositories/user.api.repository";
+import {HttpClient} from "@sweetch/shared";
 
 const router = express.Router();
 const httpClient = new HttpClient();

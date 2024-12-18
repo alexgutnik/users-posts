@@ -1,7 +1,6 @@
 import { PostApiRepository } from '../post.api.repository';
-import {HttpClient, IHttpClient} from 'shared/utils/httpClient';
+import { HttpClient, IHttpClient, ValidationError } from '@sweetch/shared';
 import { PostModel } from '../../models/post.model';
-import { ValidationError } from 'shared/exceptions/ValidationError';
 import { Post } from '../../types';
 
 describe('PostApiRepository', () => {

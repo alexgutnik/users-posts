@@ -1,9 +1,7 @@
 import { IUserRepository } from "../interfaces/userRepository.interface";
 import { User } from "../types";
-import { IHttpClient } from "shared/utils/httpClient";
+import { IHttpClient, InvalidApiResponseError, ValidationError } from "@sweetch/shared";
 import { UserModel } from "../models/user.model";
-import { ValidationError } from "shared/exceptions/ValidationError";
-import {InvalidApiResponseError} from "shared/exceptions/InvalidApiResponseError";
 
 export class UserApiRepository implements IUserRepository {
     private _httpClient: IHttpClient;

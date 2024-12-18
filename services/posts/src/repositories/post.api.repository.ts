@@ -1,8 +1,7 @@
 import { Post } from "../types";
-import { IHttpClient } from "shared/utils/httpClient";
+import { IHttpClient, InvalidApiResponseError } from "@sweetch/shared";
 import { PostModel } from "../models/post.model";
-import {IPostRepository} from "../interfaces/postRepository.interface";
-import {InvalidApiResponseError} from "shared/exceptions/InvalidApiResponseError";
+import { IPostRepository } from "../interfaces/postRepository.interface";
 
 export class PostApiRepository implements IPostRepository {
     private _httpClient: IHttpClient;

@@ -1,5 +1,5 @@
 import { PostModel } from '../post.model';
-import { ValidationError } from 'shared/exceptions/ValidationError';
+import { ValidationError } from '@sweetch/shared';
 import { Post } from '../../types';
 
 describe('PostModel', () => {

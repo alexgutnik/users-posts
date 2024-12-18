@@ -1,5 +1,5 @@
-import {Address, Company, User} from "../types";
-import {ValidationError} from "shared/exceptions/ValidationError";
+import { Address, Company, User } from "../types";
+import { ValidationError } from "@sweetch/shared";
 
 export class UserModel {
     id: number;

@@ -1,5 +1,5 @@
 import { Post } from "../types";
-import { ValidationError } from "shared/exceptions/ValidationError";
+import { ValidationError } from "@sweetch/shared";
 
 export class PostModel implements Post {
     userId: number;
