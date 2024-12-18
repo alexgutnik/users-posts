@@ -1,7 +1,7 @@
 import express from "express";
-import {UserService} from "../services/user.service";
-import {UserApiRepository} from "../repositories/user.api.repository";
-import {HttpClient} from "@sweetch/shared";
+import { UserService } from "../services/user.service";
+import { UserApiRepository } from "../repositories/user.api.repository";
+import { ApiError, HttpClient } from "@sweetch/shared";
 
 const router = express.Router();
 const httpClient = new HttpClient();
@@ -22,14 +22,12 @@ router.get("/users/:id", async (req, res, next) => {
     try {
         const id = Number(req.params.id);
         if (isNaN(id) || id <= 0) {
-            res.status(400).send({ message: "Invalid user ID" });
-            return next();
+            throw new ApiError(400, "Invalid user ID");
         }
 
         const userData = await userService.getUserById(id);
         if (userData === null) {
-            res.status(404);
-            return next();
+            throw new ApiError(404, "User not found");
         }
 
         res.status(200).send(userData);

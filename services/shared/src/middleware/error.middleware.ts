@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { ApiError } from "../exceptions/ApiError";
+import logger from "../utils/logger";
 
 export const errorHandlerMiddleware = (
     err: Error | ApiError,
@@ -10,6 +11,8 @@ export const errorHandlerMiddleware = (
     if (res.headersSent) {
         return next(err); // If headers are already sent, delegate to default handler
     }
+
+    logger.debug(err.stack);
 
     const status = err instanceof ApiError ? err.statusCode : 500; // Default to 500 for unknown errors
     const response = {

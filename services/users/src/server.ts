@@ -3,6 +3,7 @@ import path from "node:path";
 import express from "express";
 import userRoutes from "./routes/user.routes";
 import { errorHandlerMiddleware, requestLogger, responseFormatter } from "@sweetch/shared";
+import logger from "@sweetch/shared/dist/utils/logger";
 
 dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
 dotenv.config();

@@ -26,7 +26,19 @@ export class UserApiRepository implements IUserRepository {
     }
 
     async getUserById(id: Number): Promise<UserModel|null> {
-        const user = await this._httpClient.get<User>(`${process.env.API_URL}/users/${id}`);
-        return user ? new UserModel(user) : null;
+        try {
+            const user = await this._httpClient.get<User>(`${process.env.API_URL}/users/${id}`);
+            return user ? new UserModel(user) : null;
+        } catch (error: any) {
+            if (error instanceof ValidationError) {
+                throw new InvalidApiResponseError(error);
+            }
+
+            if (error?.statusCode === 404) {
+                return null;
+            }
+
+            throw error;
+        }
     }
 }
