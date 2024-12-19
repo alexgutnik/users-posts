@@ -1,6 +1,6 @@
 import express from "express";
 import { PostApiRepository } from "../repositories/post.api.repository";
-import { HttpClient } from "@sweetch/shared";
+import { ApiError, HttpClient } from "@sweetch/shared";
 import { PostService } from "../services/post.service";
 
 const router = express.Router();
@@ -13,8 +13,7 @@ router.get("/users/:id/posts", async (req, res, next) => {
     try {
         const id = Number(req.params.id);
         if (isNaN(id) || id <= 0) {
-            res.status(400).send({ message: "Invalid user ID" });
-            return next();
+            throw new ApiError(400, "Invalid user ID");
         }
 
         const postsData = await postService.getUserPosts(id);
