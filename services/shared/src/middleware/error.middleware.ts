@@ -24,5 +24,7 @@ export const errorHandlerMiddleware = (
         },
     };
 
+    logger.error(`Error: ${response.error.message}`);
+
     res.status(status).json(response);
 };
